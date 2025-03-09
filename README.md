@@ -6,6 +6,15 @@ The goal is to build out a script that does currency conversion and formatting.
 ### System Requirements
 - Ruby 3.4.2
 
+### Local Setup
+1. Clone project: `git@github.com:murjax/currency_converter.git`
+2. Navigate into folder `cd currency_converter`
+3. Install gems `bundle install`
+4. Run the script to see basic prompts `ruby app.rb`
+   You will build out the application from this file.
+5. Run tests on the CurrencyConverter class you will build out `bundle exec rspec spec`
+
+
 ### Core Objectives
 1. Prompt the user for the amount in USD and currency to convert to.
 2. Read and parse the conversion chart JSON file.
