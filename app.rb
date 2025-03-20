@@ -5,3 +5,5 @@ puts 'Please select an action'
 puts 'Options: format, add'
 
 # Populate script to support the listed actions.
+
+CurrencyConverter.new(0, 'USD')
