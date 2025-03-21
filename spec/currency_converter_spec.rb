@@ -35,17 +35,17 @@ RSpec.describe CurrencyConverter do
       it { is_expected.to eq('$1,225.00') }
     end
 
-    # context 'return nil when currency unsupported' do
-    #   let(:currency) { 'FOO' }
+    context 'return nil when currency unsupported' do
+      let(:currency) { 'FOO' }
 
-    #   it { is_expected.to be_nil }
-    # end
+      it { is_expected.to be_nil }
+    end
 
-    # context 'return nil when amount is non-numeric' do
-    #   let(:usd_amount) { 'foo' }
+    context 'return nil when amount is non-numeric' do
+      let(:usd_amount) { 'foo' }
 
-    #   it { is_expected.to be_nil }
-    # end
+      it { is_expected.to be_nil }
+    end
   end
 
   describe '.format' do

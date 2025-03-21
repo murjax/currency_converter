@@ -16,7 +16,7 @@ class CurrencyConverter
   def initialize(amount, currency)
     ## 2. set class scoped variables.
     @@currency = currency;
-    @@amount = amount.to_f;
+    @@amount =  Float( amount ) rescue nil;
     # puts(amount, currency)
   end
 
@@ -32,11 +32,12 @@ class CurrencyConverter
 
   def self.format(amount, currency)
     @@currency = currency;
-    @@amount = amount.to_f;
+    @@amount =  Float( amount ) rescue nil;
     doFormatting
   end
 
   def self.doFormatting()
+    begin
     ## string interpolation to show the currency presented.
     ## test will fail because no comma.
     # "$#{@amount}"
@@ -66,6 +67,9 @@ class CurrencyConverter
 
     Money.default_bank.add_rate('USD', @@currency, _val)
     _finalAmount = _amount.exchange_to(@@currency).format
+    rescue
+      nil
+    end
   end
 
 end
