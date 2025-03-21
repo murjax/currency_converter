@@ -18,8 +18,8 @@ class CurrencyConverter
   ## 1. allow the new command to be invoked for this class by adding an initialize function.
   def initialize(amount, currency)
     ## 2. set class scoped variables.
-    @@currency = currency;
-    @@amount = self.class.handleAmount(amount)
+    @amount = self.class.handleAmount(amount)
+    @currency = currency;
   end
 
   def self.chart()
@@ -29,26 +29,26 @@ class CurrencyConverter
   end
 
   def format()
-    self.class.doFormatting
+    self.class.doFormatting(@amount, @currency)
   end
 
   def self.format(amount, currency)
-    @@currency = currency;
-    @@amount = handleAmount(amount)
-    doFormatting
+    _amount = handleAmount(amount)
+    _currency = currency;
+    doFormatting(_amount, _currency)
   end
 
   def self.add(amounts, currency)
     _amountsCents = amounts.map { |amount| handleAmount(amount) }
+    _amount =  _amountsCents.sum rescue nil;
 
-    @@currency = currency;
-    @@amount =  _amountsCents.sum rescue nil;
-    doFormatting
+    _currency = currency;
+    doFormatting(_amount, _currency)
   end
 
 
 
-  def self.doFormatting()
+  def self.doFormatting(amount, currency)
     begin
     ## string interpolation to show the currency presented.
     ## test will fail because no comma.
@@ -68,18 +68,18 @@ class CurrencyConverter
     # +------------------+----------------------+
 
     ## We are always using usd amount.
-    return nil if(@@amount.nil?)
-    _amount = Money.from_cents(@@amount, 'USD')
+    return nil if(amount.nil?)
+    _amount = Money.from_cents(amount, 'USD')
     _amount.format()
 
     ## We may or may not convert to another amount.
     ## Symmetric Properties - if a usd amount is converted to usd the value should not change.
 
     chart
-    _val = @data_hash[@@currency]
+    _val = @data_hash[currency]
 
-    Money.default_bank.add_rate('USD', @@currency, _val)
-    _finalAmount = _amount.exchange_to(@@currency).format
+    Money.default_bank.add_rate('USD', currency, _val)
+    _finalAmount = _amount.exchange_to(currency).format
     rescue
       nil
     end
