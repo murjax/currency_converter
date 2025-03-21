@@ -59,34 +59,40 @@ RSpec.describe CurrencyConverter do
     end
   end
 
-  # describe '.add' do
-  #   let(:amounts) { [100.25, 500.50, 900.90] }
-  #   let(:currency) { 'USD' }
+  describe '.add' do
+    let(:amounts) { [100.25, 500.50, 900.90] }
+    let(:currency) { 'USD' }
 
-  #   subject { described_class.add(amounts, currency) }
+    subject { described_class.add(amounts, currency) }
 
-  #   context 'add amounts and return formatted total for given currency' do
-  #     let(:currency) { 'EUR' }
+    context 'basic, support addition with default currency' do
+      let(:amounts) { [0.1, 0.05, 1] }
 
-  #     it { is_expected.to eq('€1.389,63') }
-  #   end
+      it { is_expected.to eq('$1.15') }
+    end
 
-  #   context 'return nil when currency unsupported' do
-  #     let(:currency) { 'FOO' }
+    context 'add amounts and return formatted total for given currency' do
+      let(:currency) { 'EUR' }
 
-  #     it { is_expected.to be_nil }
-  #   end
+      it { is_expected.to eq('€1.389,63') }
+    end
 
-  #   context 'return nil when any amounts are non-numeric' do
-  #     let(:amounts) { [100.25, 'foo', 900.90] }
+      context 'return nil when currency unsupported' do
+        let(:currency) { 'FOO' }
 
-  #     it { is_expected.to be_nil }
-  #   end
+        it { is_expected.to be_nil }
+      end
 
-  #   context 'support large floating point entries' do
-  #     let(:amounts) { [0.1, 0.05, 1000000000000000.0] }
+    context 'return nil when any amounts are non-numeric' do
+      let(:amounts) { [100.25, 'foo', 900.90] }
 
-  #     it { is_expected.to eq('$1,000,000,000,000,000.15') }
-  #   end
-  # end
+      it { is_expected.to be_nil }
+    end
+
+    context 'support large floating point entries' do
+      let(:amounts) { [0.1, 0.05, 1000000000000000.0] }
+
+      it { is_expected.to eq('$1,000,000,000,000,000.15') }
+    end
+  end
 end
