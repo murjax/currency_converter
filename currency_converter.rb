@@ -27,6 +27,10 @@ class CurrencyConverter
   end
 
   def format()
+    doFormatting
+  end
+
+  def doFormatting()
     ## string interpolation to show the currency presented.
     ## test will fail because no comma.
     # "$#{@amount}"
