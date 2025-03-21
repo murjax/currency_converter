@@ -17,11 +17,11 @@ RSpec.describe CurrencyConverter do
       it { is_expected.to eq('£950.43') }
     end
 
-    # context 'convert and format USD to EUR' do
-    #   let(:currency) { 'EUR' }
+    context 'convert and format USD to EUR' do
+      let(:currency) { 'EUR' }
 
-    #   it { is_expected.to eq('€1.133,85') }
-    # end
+      it { is_expected.to eq('€1.133,85') }
+    end
 
     # context 'support string inputs' do
     #   let(:usd_amount) { '1225.25' }
@@ -29,11 +29,11 @@ RSpec.describe CurrencyConverter do
     #   it { is_expected.to eq('$1,225.25') }
     # end
 
-    # context 'pad zeros on fractional cents' do
-    #   let(:usd_amount) { 1225 }
+    context 'pad zeros on fractional cents' do
+      let(:usd_amount) { 1225 }
 
-    #   it { is_expected.to eq('$1,225.00') }
-    # end
+      it { is_expected.to eq('$1,225.00') }
+    end
 
     # context 'return nil when currency unsupported' do
     #   let(:currency) { 'FOO' }

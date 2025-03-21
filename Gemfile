@@ -7,3 +7,5 @@ gem 'rspec'
 gem "money", "~> 6.19"
 
 gem "bigdecimal", "~> 3.1"
+
+gem "json", "~> 2.10"

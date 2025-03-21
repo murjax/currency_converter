@@ -1,8 +1,11 @@
 require 'money'
+require 'json'
 
 # explicitly define locales
 I18n.config.available_locales = :en
 Money.locale_backend = :currency
+
+
 
 class CurrencyConverter
 
@@ -15,6 +18,12 @@ class CurrencyConverter
     @amount = amount;
     @currency = currency;
     # puts(amount, currency)
+  end
+
+  def chart()
+    # https://hackernoon.com/ruby-how-to-readwrite-json-file-a23h3vxa
+    _file = File.read('./conversion_chart.json')
+    @data_hash = JSON.parse(_file)
   end
 
   def format()
@@ -41,8 +50,15 @@ class CurrencyConverter
 
     ## We may or may not convert to another amount.
     ## Symmetric Properties - if a usd amount is converted to usd the value should not change.
-    _finalAmount = _amount.exchange_to(@currency)
 
+    # @data_hash[@currency]
+    chart()
+    _val = @data_hash[@currency]
+    # puts 'hi'
+    # puts _val
+    # puts 'bye'
+    Money.default_bank.add_rate('USD', @currency, _val)
+    _finalAmount = _amount.exchange_to(@currency).format
   end
 
 end
