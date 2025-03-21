@@ -11,11 +11,11 @@ RSpec.describe CurrencyConverter do
       it { is_expected.to eq('$1,225.25') }
     end
 
-    # context 'convert and format USD to GBP' do
-    #   let(:currency) { 'GBP' }
+    context 'convert and format USD to GBP' do
+      let(:currency) { 'GBP' }
 
-    #   it { is_expected.to eq('£950.43') }
-    # end
+      it { is_expected.to eq('£950.43') }
+    end
 
     # context 'convert and format USD to EUR' do
     #   let(:currency) { 'EUR' }

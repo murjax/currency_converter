@@ -1,3 +1,9 @@
+require 'money'
+
+# explicitly define locales
+I18n.config.available_locales = :en
+Money.locale_backend = :currency
+
 class CurrencyConverter
 
   # Build out class to support currency conversion, formatting, and addition
@@ -14,7 +20,29 @@ class CurrencyConverter
   def format()
     ## string interpolation to show the currency presented.
     ## test will fail because no comma.
-    "$#{@amount}"
+    # "$#{@amount}"
+
+    ## Bring in money library
+
+    ## Regarding Variables in Ruby
+    # +------------------+----------------------+
+    # | Name Begins With |    Variable Scope    |
+    # +------------------+----------------------+
+    # | $                | A global variable    |
+    # | @                | An instance variable |
+    # | [a-z] or _       | A local variable     |
+    # | [A-Z]            | A constant           |
+    # | @@               | A class variable     |
+    # +------------------+----------------------+
+
+    ## We are always using usd amount.
+    _amount = Money.from_amount(@amount, 'USD')
+    _amount.format()
+
+    ## We may or may not convert to another amount.
+    ## Symmetric Properties - if a usd amount is converted to usd the value should not change.
+    _finalAmount = _amount.exchange_to(@currency)
+
   end
 
 end
