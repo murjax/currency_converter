@@ -8,7 +8,10 @@ Money.locale_backend = :currency
 
 
 class CurrencyConverter
-
+  def self.handleAmount(amount)
+    return Float(amount) * 100 rescue nil if amount.is_a? String
+    Integer(amount  * 100) rescue nil;
+  end
   # Build out class to support currency conversion, formatting, and addition
   # See spec/currency_converter_spec.rb for detailed requirements.
 
@@ -16,8 +19,7 @@ class CurrencyConverter
   def initialize(amount, currency)
     ## 2. set class scoped variables.
     @@currency = currency;
-    @@amount =  Float( amount ) rescue nil;
-    # puts(amount, currency)
+    @@amount = self.class.handleAmount(amount)
   end
 
   def self.chart()
@@ -32,9 +34,19 @@ class CurrencyConverter
 
   def self.format(amount, currency)
     @@currency = currency;
-    @@amount =  Float( amount ) rescue nil;
+    @@amount = handleAmount(amount)
     doFormatting
   end
+
+  def self.add(amounts, currency)
+    _amountsCents = amounts.map { |amount| handleAmount(amount) }
+
+    @@currency = currency;
+    @@amount =  _amountsCents.sum rescue nil;
+    doFormatting
+  end
+
+
 
   def self.doFormatting()
     begin
@@ -56,7 +68,8 @@ class CurrencyConverter
     # +------------------+----------------------+
 
     ## We are always using usd amount.
-    _amount = Money.from_amount(@@amount, 'USD')
+    return nil if(@@amount.nil?)
+    _amount = Money.from_cents(@@amount, 'USD')
     _amount.format()
 
     ## We may or may not convert to another amount.
