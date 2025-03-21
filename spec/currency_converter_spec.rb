@@ -48,16 +48,16 @@ RSpec.describe CurrencyConverter do
     # end
   end
 
-  # describe '.format' do
-  #   subject { described_class.format(usd_amount, currency) }
+  describe '.format' do
+    subject { described_class.format(usd_amount, currency) }
 
-  #   context 'point to #format' do
-  #     let(:usd_amount) { 1225.25 }
-  #     let(:currency) { 'USD' }
+    context 'point to #format' do
+      let(:usd_amount) { 1225.25 }
+      let(:currency) { 'USD' }
 
-  #     it { is_expected.to eq('$1,225.25') }
-  #   end
-  # end
+      it { is_expected.to eq('$1,225.25') }
+    end
+  end
 
   # describe '.add' do
   #   let(:amounts) { [100.25, 500.50, 900.90] }

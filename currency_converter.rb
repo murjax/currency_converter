@@ -20,13 +20,23 @@ class CurrencyConverter
     # puts(amount, currency)
   end
 
-  def chart()
+  def self.chart()
     # https://hackernoon.com/ruby-how-to-readwrite-json-file-a23h3vxa
     _file = File.read('./conversion_chart.json')
     @data_hash = JSON.parse(_file)
   end
 
   def format()
+    self.class.doFormatting
+  end
+
+  def self.format(amount, currency)
+    @currency = currency;
+    @amount = amount;
+    doFormatting
+  end
+
+  def self.doFormatting()
     ## string interpolation to show the currency presented.
     ## test will fail because no comma.
     # "$#{@amount}"
@@ -54,11 +64,8 @@ class CurrencyConverter
     # @data_hash[@currency]
     chart()
     _val = @data_hash[@currency]
-    # puts 'hi'
-    # puts _val
-    # puts 'bye'
+
     Money.default_bank.add_rate('USD', @currency, _val)
     _finalAmount = _amount.exchange_to(@currency).format
   end
-
 end
