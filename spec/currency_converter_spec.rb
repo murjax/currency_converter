@@ -23,11 +23,11 @@ RSpec.describe CurrencyConverter do
       it { is_expected.to eq('€1.133,85') }
     end
 
-    # context 'support string inputs' do
-    #   let(:usd_amount) { '1225.25' }
+    context 'support string inputs' do
+      let(:usd_amount) { '1225.25' }
 
-    #   it { is_expected.to eq('$1,225.25') }
-    # end
+      it { is_expected.to eq('$1,225.25') }
+    end
 
     context 'pad zeros on fractional cents' do
       let(:usd_amount) { 1225 }

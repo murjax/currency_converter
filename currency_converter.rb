@@ -16,7 +16,7 @@ class CurrencyConverter
   def initialize(amount, currency)
     ## 2. set class scoped variables.
     @@currency = currency;
-    @@amount = amount;
+    @@amount = amount.to_f;
     # puts(amount, currency)
   end
 
@@ -32,7 +32,7 @@ class CurrencyConverter
 
   def self.format(amount, currency)
     @@currency = currency;
-    @@amount = amount;
+    @@amount = amount.to_f;
     doFormatting
   end
 
