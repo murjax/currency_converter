@@ -65,17 +65,23 @@ RSpec.describe CurrencyConverter do
 
     subject { described_class.add(amounts, currency) }
 
+    context 'basic, support addition with default currency' do
+      let(:amounts) { [0.1, 0.05, 1] }
+
+      it { is_expected.to eq('$1.15') }
+    end
+
     context 'add amounts and return formatted total for given currency' do
       let(:currency) { 'EUR' }
 
       it { is_expected.to eq('€1.389,63') }
     end
 
-    context 'return nil when currency unsupported' do
-      let(:currency) { 'FOO' }
+      context 'return nil when currency unsupported' do
+        let(:currency) { 'FOO' }
 
-      it { is_expected.to be_nil }
-    end
+        it { is_expected.to be_nil }
+      end
 
     context 'return nil when any amounts are non-numeric' do
       let(:amounts) { [100.25, 'foo', 900.90] }
